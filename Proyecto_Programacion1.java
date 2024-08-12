@@ -1,4 +1,4 @@
-package tarea_ternario;
+package Proyecto_Programacion1;
 
 
 import java.util.InputMismatchException;
