@@ -1,4 +1,4 @@
-
+package sate;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -47,12 +47,17 @@ public class Proyecto_Programacion1 {
                     System.out.println("Ingresar la cantidad de efectivo: ");
                     try {
                         efectivo_caja = sc.nextDouble();
+                        if (efectivo_caja < 0) {
+                            System.out.println("La cantidad de efectivo no puede ser negativa.");
+                            sc.nextLine();
+                            continue; 
+                        }
                         efectivo_total += efectivo_caja;
                         System.out.println("Cantidad de efectivo en caja: " + efectivo_total);
                         primeraApertura = false;
                     } catch (InputMismatchException e) {
                         System.out.println("Entrada invalida. Debe ingresar un numero.");
-                        sc.next();
+                        sc.next(); 
                     }
                 } else {
                     System.out.println("Caja abierta nuevamente");
@@ -518,12 +523,12 @@ public class Proyecto_Programacion1 {
                 System.out.println("Cantidad de dinero en caja: " + efectivo_total);
                 System.out.println("Cantidad de ventas: " + cantVentas);
                 System.out.println("Cantidad de compras: " + cantCompras);
-                if (ganancia<0) {
+                if (ganancia < 0) {
                     System.out.println("No se gano nada");
-                }else{
+                } else {
                     System.out.println("Ganancias total: " + ganancia);
                 }
-                
+
                 System.out.println("Volumen total ventas: " + volumen_venta);
                 System.out.println("Volumen total compras: " + volumen_compra);
                 if (cont_venta != 0) {
