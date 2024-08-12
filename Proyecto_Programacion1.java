@@ -1,5 +1,7 @@
-package proyecto_programacion1;
+package tarea_ternario;
 
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Proyecto_Programacion1 {
@@ -7,14 +9,15 @@ public class Proyecto_Programacion1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
-        double opcion, efectivo_caja, ganancia_dia = 0, avena_stock = 0, azucar_stock = 0, trigo_stock = 0, maiz_stock = 0, azucar = 0, avena = 0, trigo = 0, maiz = 0;
+        double opcion = 0, efectivo_caja, ganancia_dia = 0, avena_stock = 0, azucar_stock = 0, trigo_stock = 0, maiz_stock = 0, azucar = 0, avena = 0, trigo = 0, maiz = 0;
         double efectivo_total = 0, cantidad_compra = 0, cantidad_venta = 0, precio = 0, total_venta = 0, total_compra = 0, count = 0, ganancia = 0, volumen_venta = 0, volumen_compra = 0;
         double cont_venta = 0, cont_compra = 0, cont_total = 0, descuento = 0, subtotal = 0, impuesto = 0, mayorVenta = 0;
         double totalAzucarVendido = 0, totalAvenaVendido = 0, totalTrigoVendido = 0, totalMaizVendido = 0, maxVenta = totalAzucarVendido;
         double totalAzucarVendidoR = 0, totalAvenaVendidoR = 0, totalTrigoVendidoR = 0, totalMaizVendidoR = 0;
         int dia = 1, codigo_producto = 0, cantVentas = 0, cantCompras = 0;
         String cliente, usuario, nombre = " ", respuesta_venta = "", respuesta_compra = "", productoMayorVenta = "", productoEstrella = "Azucar";
-        boolean cajaAbierta = false, stock = false,primeraApertura= true;
+        boolean cajaAbierta = false, stock = false, primeraApertura = true;
+
         do {
             System.out.println("");
             System.out.println("1 Abrir Caja ");
@@ -22,12 +25,19 @@ public class Proyecto_Programacion1 {
             System.out.println("3 Compras ");
             System.out.println("4 Reportes ");
             System.out.println("5 Cierre de caja");
-            System.out.println("6 Salir Del SItema ");
-            opcion = sc.nextInt();
-            if (opcion < 1 || opcion > 6) {
-                System.out.println("opcion no valida seleccione una correcta");
-                opcion = sc.nextInt();
+            System.out.println("6 Salir Del Sistema ");
+
+            try {
+                opcion = sc.nextDouble();
+                if (opcion < 1 || opcion > 6) {
+                    System.out.println("Opcion no valida, seleccione una correcta.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Por favor, ingrese un numero.");
+                sc.next(); 
+                continue;
             }
+
             System.out.println("");
 
             if (opcion == 1) {
@@ -36,10 +46,15 @@ public class Proyecto_Programacion1 {
                 if (primeraApertura) {
                     System.out.println("Caja abierta por primera vez");
                     System.out.println("Ingresar la cantidad de efectivo: ");
-                    efectivo_caja = sc.nextDouble();
-                    efectivo_total += efectivo_caja;
-                    System.out.println("Cantidad de efectivo en caja: " + efectivo_total);
-                    primeraApertura = false;
+                    try {
+                        efectivo_caja = sc.nextDouble();
+                        efectivo_total += efectivo_caja;
+                        System.out.println("Cantidad de efectivo en caja: " + efectivo_total);
+                        primeraApertura = false;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Entrada invalida. Debe ingresar un numero.");
+                        sc.next(); 
+                    }
                 } else {
                     System.out.println("Caja abierta nuevamente");
                     System.out.println("Cantidad de efectivo en caja: " + efectivo_total);
@@ -59,7 +74,7 @@ public class Proyecto_Programacion1 {
                             System.out.println("Ingresar tipo de cliente A/B/C");
                             cliente = sc.next();
                             while (!cliente.equalsIgnoreCase("a") && !cliente.equalsIgnoreCase("b") && !cliente.equalsIgnoreCase("c")) {
-                                System.out.println("la opcion ingresada no es valida porfavor ingresar unos de los tres tipos A/B/C");
+                                System.out.println("La opcion ingresada no es valida, por favor ingrese uno de los tres tipos A/B/C");
                                 cliente = sc.next();
                             }
 
@@ -76,14 +91,26 @@ public class Proyecto_Programacion1 {
                                 System.out.println("|  4    |   Maiz    |   lps.20      |   " + maiz_stock + " kg |");
                                 System.out.println("------------------------------------------------------------");
                                 System.out.println("Ingresar el codigo de producto");
-                                codigo_producto = sc.nextInt();
-                                while (codigo_producto != 1 && codigo_producto != 2 && codigo_producto != 3 && codigo_producto != 4) {
-                                    System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                                try {
                                     codigo_producto = sc.nextInt();
+                                    while (codigo_producto != 1 && codigo_producto != 2 && codigo_producto != 3 && codigo_producto != 4) {
+                                        System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                        codigo_producto = sc.nextInt();
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                    sc.next(); 
+                                    continue;
                                 }
                                 if (codigo_producto > 0 && codigo_producto <= 4) {
-                                    System.out.println("ingresar la cantidad que desea vender en kilogramos");
-                                    cantidad_venta = sc.nextDouble();
+                                    System.out.println("Ingresar la cantidad que desea vender en kilogramos");
+                                    try {
+                                        cantidad_venta = sc.nextDouble();
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                        sc.next(); 
+                                        continue;
+                                    }
                                     System.out.println("");
 
                                     if (codigo_producto == 1) {
@@ -131,14 +158,26 @@ public class Proyecto_Programacion1 {
                                 System.out.println("|  3    |   Trigo   |   lps.32      |   " + trigo_stock + " kg |");
                                 System.out.println("------------------------------------------------------------");
                                 System.out.println("Ingresar el codigo de producto");
-                                codigo_producto = sc.nextInt();
-                                while (codigo_producto != 1 && codigo_producto != 2 && codigo_producto != 3) {
-                                    System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                                try {
                                     codigo_producto = sc.nextInt();
+                                    while (codigo_producto != 1 && codigo_producto != 2 && codigo_producto != 3) {
+                                        System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                        codigo_producto = sc.nextInt();
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                    sc.next(); 
+                                    continue;
                                 }
                                 if (codigo_producto > 0 && codigo_producto <= 3) {
-                                    System.out.println("ingresar la cantidad que desea comprar en kilogramos");
-                                    cantidad_venta = sc.nextDouble();
+                                    System.out.println("Ingresar la cantidad que desea comprar en kilogramos");
+                                    try {
+                                        cantidad_venta = sc.nextDouble();
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                        sc.next(); 
+                                        continue;
+                                    }
                                     System.out.println("");
                                     if (codigo_producto == 1) {
                                         nombre = "Azucar";
@@ -173,14 +212,26 @@ public class Proyecto_Programacion1 {
                                 System.out.println("|  4    |   Maiz    |   lps.20      |   " + maiz_stock + " kg  |");
                                 System.out.println("------------------------------------------------------------");
                                 System.out.println("Ingresar el codigo de producto");
-                                codigo_producto = sc.nextInt();
-                                while (codigo_producto != 4) {
-                                    System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                                try {
                                     codigo_producto = sc.nextInt();
+                                    while (codigo_producto != 4) {
+                                        System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                        codigo_producto = sc.nextInt();
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                    sc.next(); 
+                                    continue;
                                 }
                                 if (codigo_producto > 3 && codigo_producto <= 4) {
-                                    System.out.println("ingresar la cantidad que desea comprar en kilogramos");
-                                    cantidad_venta = sc.nextDouble();
+                                    System.out.println("Ingresar la cantidad que desea comprar en kilogramos");
+                                    try {
+                                        cantidad_venta = sc.nextDouble();
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                        sc.next(); 
+                                        continue;
+                                    }
                                     System.out.println("");
 
                                     if (codigo_producto == 4) {
@@ -208,13 +259,13 @@ public class Proyecto_Programacion1 {
                                     cont_venta += cantidad_venta;
                                     cantVentas++;
                                     System.out.println("");
-                                    System.out.println("el producto seleccionado es " + nombre);
-                                    System.out.println("el codigo seleccionado es " + codigo_producto);
-                                    System.out.println("el precio individual es " + precio + " Lps");
-                                    System.out.println("el descuento " + descuento + " Lps");
-                                    System.out.println("el impuesto es " + impuesto);
-                                    System.out.println("el subtotal es " + subtotal + " Lps");
-                                    System.out.println("el precio total es " + total_venta + " Lps");
+                                    System.out.println("El producto seleccionado es " + nombre);
+                                    System.out.println("El codigo seleccionado es " + codigo_producto);
+                                    System.out.println("El precio individual es " + precio + " Lps");
+                                    System.out.println("El descuento " + descuento + " Lps");
+                                    System.out.println("El impuesto es " + impuesto);
+                                    System.out.println("El subtotal es " + subtotal + " Lps");
+                                    System.out.println("El precio total es " + total_venta + " Lps");
                                     System.out.println(" ");
 
                                     volumen_venta += total_venta;
@@ -226,7 +277,7 @@ public class Proyecto_Programacion1 {
                                     trigo_stock -= trigo;
                                     maiz_stock -= maiz;
 
-                                    System.out.println("dinero en caja actualizado " + efectivo_total + " Lps");
+                                    System.out.println("Dinero en caja actualizado " + efectivo_total + " Lps");
                                     System.out.println("");
                                     if (total_venta > mayorVenta) {
                                         mayorVenta = total_venta;
@@ -246,12 +297,12 @@ public class Proyecto_Programacion1 {
                                         totalMaizVendidoR += cantidad_venta;
                                     }
                                 } else {
-                                    System.out.println("la cantidad que esta comprando no es valida mirar si hay en almacen");
+                                    System.out.println("La cantidad que esta comprando no es valida, verifique si hay en almacen.");
                                 }
                             } else {
                                 System.out.println("");
-                                System.out.println("su dinero en caja es insuficiente para efectuar la compra");
-                                System.out.println("dinero actual " + efectivo_total + "Lps");
+                                System.out.println("Su dinero en caja es insuficiente para efectuar la compra");
+                                System.out.println("Dinero actual " + efectivo_total + " Lps");
                                 System.out.println("");
                             }
 
@@ -276,11 +327,11 @@ public class Proyecto_Programacion1 {
                             productoEstrella = "Maiz";
                         }
                     } else {
-                        System.out.println("no hay productos en inventario porfavor llenar inventario para poder vender");
+                        System.out.println("No hay productos en inventario, por favor llenar inventario para poder vender.");
                     }
                 } else {
                     System.out.println("");
-                    System.out.println("La caja esta cerrada ocupa abrir la caja para ingresar a ventas ");
+                    System.out.println("La caja esta cerrada, necesita abrir la caja para ingresar a ventas.");
                     System.out.println("");
                 }
 
@@ -289,10 +340,10 @@ public class Proyecto_Programacion1 {
                 if (cajaAbierta) {
                     do {
 
-                        System.out.println("ingresar proveedor A/B/C");
+                        System.out.println("Ingresar proveedor A/B/C");
                         usuario = sc.next();
                         while (!usuario.equalsIgnoreCase("a") && !usuario.equalsIgnoreCase("b") && !usuario.equalsIgnoreCase("c")) {
-                            System.out.println("la opcion ingresada no es valida porfavor ingresar unos de los tres tipos A/B/C");
+                            System.out.println("La opcion ingresada no es valida, por favor ingrese uno de los tres tipos A/B/C");
                             usuario = sc.next();
                         }
                         if (usuario.equalsIgnoreCase("A")) {
@@ -304,16 +355,28 @@ public class Proyecto_Programacion1 {
                             System.out.println("|  4    |   Maiz    |   lps.18      |");
                             System.out.println("-------------------------------------");
                             System.out.println("Ingresar el codigo del producto a comprar ");
-                            codigo_producto = sc.nextInt();
-                            while (codigo_producto != 1 && codigo_producto != 4) {
-                                System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                            try {
                                 codigo_producto = sc.nextInt();
+                                while (codigo_producto != 1 && codigo_producto != 4) {
+                                    System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                    codigo_producto = sc.nextInt();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next();
+                                continue;
                             }
                             System.out.println("Ingresar la cantidad que desea comprar por kilogramos");
-                            cantidad_compra = sc.nextDouble();
-                            while (cantidad_compra < 0) {
-                                System.out.println("ingresar un numero valido");
+                            try {
                                 cantidad_compra = sc.nextDouble();
+                                while (cantidad_compra < 0) {
+                                    System.out.println("Ingresar un numero valido");
+                                    cantidad_compra = sc.nextDouble();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next(); 
+                                continue;
                             }
                             System.out.println("");
                             if (codigo_producto == 1) {
@@ -336,16 +399,28 @@ public class Proyecto_Programacion1 {
                             System.out.println("|  3    |   Trigo   |   lps.30      |");
                             System.out.println("-------------------------------------");
                             System.out.println("Ingresar el codigo del producto a comprar ");
-                            codigo_producto = sc.nextInt();
-                            while (codigo_producto != 2 && codigo_producto != 3) {
-                                System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                            try {
                                 codigo_producto = sc.nextInt();
+                                while (codigo_producto != 2 && codigo_producto != 3) {
+                                    System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                    codigo_producto = sc.nextInt();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next(); 
+                                continue;
                             }
                             System.out.println("Ingresar la cantidad que desea comprar por kilogramos");
-                            cantidad_compra = sc.nextDouble();
-                            while (cantidad_compra < 0) {
-                                System.out.println("ingresar un numero valido");
+                            try {
                                 cantidad_compra = sc.nextDouble();
+                                while (cantidad_compra < 0) {
+                                    System.out.println("Ingresar un numero valido");
+                                    cantidad_compra = sc.nextDouble();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next(); 
+                                continue;
                             }
                             System.out.println("");
                             if (codigo_producto == 2) {
@@ -366,16 +441,28 @@ public class Proyecto_Programacion1 {
                             System.out.println("|  2    |   Avena   |   lps.22      |");
                             System.out.println("-------------------------------------");
                             System.out.println("Ingresar el codigo del producto a comprar ");
-                            codigo_producto = sc.nextInt();
-                            while (codigo_producto != 4) {
-                                System.out.println("numero ingresado no valido intente de nuevo con uno valido ");
+                            try {
                                 codigo_producto = sc.nextInt();
+                                while (codigo_producto != 4) {
+                                    System.out.println("Numero ingresado no valido, intente de nuevo con uno valido");
+                                    codigo_producto = sc.nextInt();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next();
+                                continue;
                             }
                             System.out.println("Ingresar la cantidad que desea comprar por kilogramos");
-                            cantidad_compra = sc.nextDouble();
-                            while (cantidad_compra < 0) {
-                                System.out.println("ingresar un numero valido");
+                            try {
                                 cantidad_compra = sc.nextDouble();
+                                while (cantidad_compra < 0) {
+                                    System.out.println("Ingresar un numero valido");
+                                    cantidad_compra = sc.nextDouble();
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Entrada invalida. Debe ingresar un numero.");
+                                sc.next();
+                                continue;
                             }
                             System.out.println("");
                             if (codigo_producto == 2) {
@@ -391,13 +478,13 @@ public class Proyecto_Programacion1 {
                             cont_compra += count;
                             count = azucar + trigo + maiz + avena;
                             System.out.println("");
-                            System.out.println("el producto seleccionado es " + nombre);
-                            System.out.println("el codigo seleccionado es " + codigo_producto);
-                            System.out.println("el precio individual es " + precio + "lps");
-                            System.out.println("cantidad comprada " + count);
-                            System.out.println("el precio total es " + total_compra + " Lps");
+                            System.out.println("El producto seleccionado es " + nombre);
+                            System.out.println("El codigo seleccionado es " + codigo_producto);
+                            System.out.println("El precio individual es " + precio + " Lps");
+                            System.out.println("Cantidad comprada " + count);
+                            System.out.println("El precio total es " + total_compra + " Lps");
                             System.out.println(" ");
-                            System.out.println("dinero en caja actualizado " + efectivo_total + " Lps");
+                            System.out.println("Dinero en caja actualizado " + efectivo_total + " Lps");
                             System.out.println("");
                             volumen_compra += total_compra;
                             ganancia_dia -= total_compra;
@@ -409,8 +496,8 @@ public class Proyecto_Programacion1 {
 
                         } else {
                             System.out.println("");
-                            System.out.println("su dinero en caja es insuficiente para efectuar la compra");
-                            System.out.println("dinero actual " + efectivo_total + "Lps");
+                            System.out.println("Su dinero en caja es insuficiente para efectuar la compra");
+                            System.out.println("Dinero actual " + efectivo_total + " Lps");
                             System.out.println("");
                         }
                         count = 0;
@@ -418,24 +505,24 @@ public class Proyecto_Programacion1 {
                         avena = 0;
                         trigo = 0;
                         maiz = 0;
-                        System.out.println("desea realizar otra compra? Si/No");
+                        System.out.println("Desea realizar otra compra? Si/No");
                         respuesta_compra = sc.next();
                     } while (!respuesta_compra.equalsIgnoreCase("no"));
                 } else {
-                    System.out.println("la caja actualmente se encuentra cerrada");
+                    System.out.println("La caja actualmente se encuentra cerrada.");
                 }
 
             }
             if (opcion == 4) {
                 cont_total = cont_venta + cont_compra;
-                System.out.println("cantidad de dinero en caja " + efectivo_total);
-                System.out.println("cantidad de ventas " + cantVentas);
-                System.out.println("cantidad de compras " + cantCompras);
-                System.out.println("ganancias total " + ganancia);
-                System.out.println("volumen total ventas " + volumen_venta);
-                System.out.println("volumen total compras " + volumen_compra);
-                System.out.println("valor medio de ventas " + volumen_venta / cont_venta);
-                System.out.println("valor medio de compras " + volumen_compra / cont_compra);
+                System.out.println("Cantidad de dinero en caja: " + efectivo_total);
+                System.out.println("Cantidad de ventas: " + cantVentas);
+                System.out.println("Cantidad de compras: " + cantCompras);
+                System.out.println("Ganancias total: " + ganancia);
+                System.out.println("Volumen total ventas: " + volumen_venta);
+                System.out.println("Volumen total compras: " + volumen_compra);
+                System.out.println("Valor medio de ventas: " + volumen_venta / cont_venta);
+                System.out.println("Valor medio de compras: " + volumen_compra / cont_compra);
                 System.out.println("La venta mas grande fue de " + mayorVenta + " Lps con el producto " + productoMayorVenta);
                 System.out.println("El Producto Estrella del dia es " + productoEstrella + " con una venta de " + maxVenta + " kilogramos");
                 double azucarrank = totalAzucarVendidoR, avenarank = totalAvenaVendidoR, trigorank = totalTrigoVendidoR, maizrank = totalMaizVendidoR;
@@ -461,20 +548,26 @@ public class Proyecto_Programacion1 {
             if (opcion == 5) {
                 if (cajaAbierta) {
                     System.out.println("");
-                    System.out.println("cierre de caja completo del dia =" + dia);
-                    System.out.println("las ganancias totales son " + ganancia_dia + "Lps");
+                    System.out.println("Cierre de caja completo del dia = " + dia);
+                    System.out.println("Las ganancias totales son " + ganancia_dia + " Lps");
                     System.out.println("");
                     dia++;
                     cajaAbierta = false;
                     ganancia_dia = 0;
-                    
+                    cantVentas=0;
+                    cantCompras=0;
+                    ganancia=0;
+                    volumen_venta=0;
+                    volumen_compra=0;
+                    cont_venta=0;
+                    cont_compra=0;
                 } else {
-                    System.out.println("la caja se encuentra cerrada actualmente");
+                    System.out.println("La caja se encuentra cerrada actualmente");
                 }
             }
 
             if (opcion == 6) {
-                System.out.println("salio del sistema correctamente");
+                System.out.println("Salio del sistema correctamente");
 
             }
 
