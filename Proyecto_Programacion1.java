@@ -1,4 +1,4 @@
-package Proyecto_Programacion1;
+package proyecto_programacion1;
 
 
 import java.util.InputMismatchException;
