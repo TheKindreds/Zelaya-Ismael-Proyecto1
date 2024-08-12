@@ -1,4 +1,3 @@
-package proyecto_programacion1;
 
 
 import java.util.InputMismatchException;
@@ -34,7 +33,7 @@ public class Proyecto_Programacion1 {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada invalida. Por favor, ingrese un numero.");
-                sc.next(); 
+                sc.next();
                 continue;
             }
 
@@ -53,7 +52,7 @@ public class Proyecto_Programacion1 {
                         primeraApertura = false;
                     } catch (InputMismatchException e) {
                         System.out.println("Entrada invalida. Debe ingresar un numero.");
-                        sc.next(); 
+                        sc.next();
                     }
                 } else {
                     System.out.println("Caja abierta nuevamente");
@@ -99,7 +98,7 @@ public class Proyecto_Programacion1 {
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                    sc.next(); 
+                                    sc.next();
                                     continue;
                                 }
                                 if (codigo_producto > 0 && codigo_producto <= 4) {
@@ -108,7 +107,7 @@ public class Proyecto_Programacion1 {
                                         cantidad_venta = sc.nextDouble();
                                     } catch (InputMismatchException e) {
                                         System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                        sc.next(); 
+                                        sc.next();
                                         continue;
                                     }
                                     System.out.println("");
@@ -166,7 +165,7 @@ public class Proyecto_Programacion1 {
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                    sc.next(); 
+                                    sc.next();
                                     continue;
                                 }
                                 if (codigo_producto > 0 && codigo_producto <= 3) {
@@ -175,7 +174,7 @@ public class Proyecto_Programacion1 {
                                         cantidad_venta = sc.nextDouble();
                                     } catch (InputMismatchException e) {
                                         System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                        sc.next(); 
+                                        sc.next();
                                         continue;
                                     }
                                     System.out.println("");
@@ -220,7 +219,7 @@ public class Proyecto_Programacion1 {
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                    sc.next(); 
+                                    sc.next();
                                     continue;
                                 }
                                 if (codigo_producto > 3 && codigo_producto <= 4) {
@@ -229,7 +228,7 @@ public class Proyecto_Programacion1 {
                                         cantidad_venta = sc.nextDouble();
                                     } catch (InputMismatchException e) {
                                         System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                        sc.next(); 
+                                        sc.next();
                                         continue;
                                     }
                                     System.out.println("");
@@ -375,7 +374,7 @@ public class Proyecto_Programacion1 {
                                 }
                             } catch (InputMismatchException e) {
                                 System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                sc.next(); 
+                                sc.next();
                                 continue;
                             }
                             System.out.println("");
@@ -407,7 +406,7 @@ public class Proyecto_Programacion1 {
                                 }
                             } catch (InputMismatchException e) {
                                 System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                sc.next(); 
+                                sc.next();
                                 continue;
                             }
                             System.out.println("Ingresar la cantidad que desea comprar por kilogramos");
@@ -419,7 +418,7 @@ public class Proyecto_Programacion1 {
                                 }
                             } catch (InputMismatchException e) {
                                 System.out.println("Entrada invalida. Debe ingresar un numero.");
-                                sc.next(); 
+                                sc.next();
                                 continue;
                             }
                             System.out.println("");
@@ -472,11 +471,12 @@ public class Proyecto_Programacion1 {
                             }
                         }
                         total_compra = precio * cantidad_compra;
+
                         if (efectivo_total >= total_compra) {
                             cantCompras++;
                             efectivo_total -= total_compra;
-                            cont_compra += count;
                             count = azucar + trigo + maiz + avena;
+                            cont_compra += count;
                             System.out.println("");
                             System.out.println("El producto seleccionado es " + nombre);
                             System.out.println("El codigo seleccionado es " + codigo_producto);
@@ -518,11 +518,24 @@ public class Proyecto_Programacion1 {
                 System.out.println("Cantidad de dinero en caja: " + efectivo_total);
                 System.out.println("Cantidad de ventas: " + cantVentas);
                 System.out.println("Cantidad de compras: " + cantCompras);
-                System.out.println("Ganancias total: " + ganancia);
+                if (ganancia<0) {
+                    System.out.println("No se gano nada");
+                }else{
+                    System.out.println("Ganancias total: " + ganancia);
+                }
+                
                 System.out.println("Volumen total ventas: " + volumen_venta);
                 System.out.println("Volumen total compras: " + volumen_compra);
-                System.out.println("Valor medio de ventas: " + volumen_venta / cont_venta);
-                System.out.println("Valor medio de compras: " + volumen_compra / cont_compra);
+                if (cont_venta != 0) {
+                    System.out.println("Valor medio de ventas: " + (volumen_venta / cont_venta));
+                } else {
+                    System.out.println("Valor medio de ventas: 0");
+                }
+                if (cont_compra != 0) {
+                    System.out.println("Valor medio de compras: " + (volumen_compra / cont_compra));
+                } else {
+                    System.out.println("Valor medio de compras: 0");
+                }
                 System.out.println("La venta mas grande fue de " + mayorVenta + " Lps con el producto " + productoMayorVenta);
                 System.out.println("El Producto Estrella del dia es " + productoEstrella + " con una venta de " + maxVenta + " kilogramos");
                 double azucarrank = totalAzucarVendidoR, avenarank = totalAvenaVendidoR, trigorank = totalTrigoVendidoR, maizrank = totalMaizVendidoR;
@@ -548,21 +561,58 @@ public class Proyecto_Programacion1 {
             if (opcion == 5) {
                 if (cajaAbierta) {
                     System.out.println("");
-                    System.out.println("Cierre de caja completo del dia = " + dia);
-                    System.out.println("Las ganancias totales son " + ganancia_dia + " Lps");
-                    System.out.println("");
+                    System.out.println("Cierre de caja Dia " + dia);
+                    System.out.println("Ganancia total en la caja: " + efectivo_total + " Lps");
+
+                    double maxDeposito = efectivo_total * 0.60;
+                    double deposito = 0;
+
+                    do {
+                        System.out.println("Cuanto efectivo desea depositar en el banco? (Maximo permitido: " + maxDeposito + " Lps)");
+                        try {
+                            deposito = sc.nextDouble();
+                            if (deposito > maxDeposito) {
+                                System.out.println("El deposito supera el 60% del efectivo en la caja. Ingrese un monto valido.");
+                            } else if (deposito < 0) {
+                                System.out.println("El deposito no puede ser negativo. Ingrese un monto valido.");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Entrada invalida. Debe ingresar un numero.");
+                            sc.next();
+                            deposito = -1;
+                        }
+                    } while (deposito < 0 || deposito > maxDeposito);
+
+                    efectivo_total -= deposito;
+                    System.out.println("Deposito realizado con exito efectivo restante en caja: " + efectivo_total + " Lps");
+
+                    ganancia_dia = 0;
+                    cont_venta = 0;
+                    cont_compra = 0;
+                    volumen_venta = 0;
+                    volumen_compra = 0;
+                    cantVentas = 0;
+                    cantCompras = 0;
+                    mayorVenta = 0;
+                    productoMayorVenta = "";
+                    maxVenta = 0;
+                    productoEstrella = "Azucar";
+                    totalAzucarVendido = 0;
+                    totalAvenaVendido = 0;
+                    totalTrigoVendido = 0;
+                    totalMaizVendido = 0;
+                    totalAzucarVendidoR = 0;
+                    totalAvenaVendidoR = 0;
+                    totalTrigoVendidoR = 0;
+                    totalMaizVendidoR = 0;
+
                     dia++;
                     cajaAbierta = false;
-                    ganancia_dia = 0;
-                    cantVentas=0;
-                    cantCompras=0;
-                    ganancia=0;
-                    volumen_venta=0;
-                    volumen_compra=0;
-                    cont_venta=0;
-                    cont_compra=0;
+                    System.out.println("Cierre de caja completado. No puede realizar ventas o compras hasta que se abra la caja nuevamente.");
+                    System.out.println("");
+
                 } else {
-                    System.out.println("La caja se encuentra cerrada actualmente");
+                    System.out.println("La caja se encuentra cerrada actualmente. Debe abrirla para realizar el cierre.");
                 }
             }
 
